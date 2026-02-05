@@ -1,14 +1,18 @@
+const token = window.localStorage.getItem("token");
+
+console.log(token);
+
 const response = await fetch("http://localhost:5678/api/works", {
     method: "GET",
     headers: { "Content-Type": "application/json" }
 });
 
-const res = await response.json();
+const data = await response.json();
 
 document.querySelector(".gallery").innerHTML = '';
 import {gallery} from '/modules/gallery.js';
 
-gallery(res);
+gallery(data);
 
 const btnFilters = document.querySelectorAll("button");
     
@@ -20,7 +24,7 @@ for (let i = 0; i < btnFilters.length; i++) {
 
         if(dataId == 0) {
 
-            const resFilter = res;
+            const resFilter = data;
             console.log(resFilter);
             document.querySelector(".gallery").innerHTML = '';
             gallery(resFilter);
@@ -30,7 +34,7 @@ for (let i = 0; i < btnFilters.length; i++) {
         
         else {
             
-            const resFilter = res.filter(function (j) {
+            const resFilter = data.filter(function (j) {
                 
                 return j.categoryId == dataId;
 
@@ -46,3 +50,18 @@ for (let i = 0; i < btnFilters.length; i++) {
     });
   
 };
+
+if(token) {
+
+    const aLogin = document.getElementById("a-login");
+    document.getElementById("a-login").href="";
+    aLogin.innerText = "";
+    aLogin.innerText = "Logout";
+
+    aLogin.addEventListener("click", function () {
+
+        window.localStorage.removeItem("token");
+
+    });
+
+}

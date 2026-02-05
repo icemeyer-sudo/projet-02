@@ -23,6 +23,13 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+a {
+	text-decoration: none;
+	color: black;
+}
+a:hover{
+	color: #B1663C;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -205,9 +212,78 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+footer {
+	background-color: white;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 0 2em;
+	padding: 2em 0;
 }
 
+.main-container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.h2-login {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.p-loging {
+	font-weight: 500;
+}
+
+.p-login label {
+	font-size: 14px;
+	margin: 30px 0px 10px 0px;
+	display: block;
+	font-weight: 500;
+	color: #3D3D3D;
+}
+
+.p-login input {
+	min-width: 300px;
+	background-color: white;
+	border: none;
+	box-shadow: 0px 4px 14px 0 #00000017;
+	padding: 10px;
+}
+
+.p-submit input {
+	padding: 10px;
+	border: 1px solid #1D6154;
+}
+
+.p-submit {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.p-submit input:hover {
+	color: #1D6154;
+	background-color: #FFFEF8;
+	cursor: pointer;
+}
+
+.pw-forget {
+	text-align: center;
+	text-decoration: underline;
+}
+
+#p-error {
+	padding: 10px;
+	box-shadow: 0px 0px 10px red;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.disabled {
+	display: none;
+}
