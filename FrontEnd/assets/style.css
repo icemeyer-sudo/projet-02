@@ -54,20 +54,113 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
-	max-width: 1140px;
+
+#div-edition-mode {
+	width: 100%;
+	background-color: black;
+	color: white;
+	text-align: center;
+	font-family: 'Work Sans';
+	padding: 20px;
+}
+
+#super-container {
+	width: 100%;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	background-color: #FFFEF8;
+	padding-top: 50px;
+	display: grid;
+	justify-content: center;
+}
+
+.brightness {
+	filter: brightness(70%);
+}
+#sous-container {
+	max-width: 1140px;
+}
+
+body {
+	background-color: #FFFEF8;
+	
+	width: 100%;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
 }
 section {
 	margin: 50px 0
+}
+
+#div-admin {
+	width: 25%;
+	position: fixed;
+	background-color: white;
+	top: 50%;
+	left: 50%;
+	translate: -50% -50%;
+	border-radius: 10px;
+	z-index: 1;
+	padding: 50px 120px 50px 120px;
+}
+
+#div-close-admin {
+	position: absolute;
+	padding: 10px;
+	top: 0;
+	right: 0;
+	font-family: 'Syne';
+	font-size: 20px;
+}
+
+#div-close-admin:hover {
+	color: #1D6154;
+	cursor: pointer;
+}
+
+.div-admin-title {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.div-admin-title h3 {
+	font-size: 26px;
+	font-family: 'Work Sans' ;
+	margin-bottom: 50px;
+}
+
+.div-admin-gallery {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	gap: 30px 10px;
+}
+
+.div-admin-gallery img {
+	width: 100%;
+}
+
+.div-admin-button {
+	display: flex;
+	justify-content: center;
+	border-top: 1px solid #B3B3B3;
+	margin-top: 50px;
+	padding-top: 50px;
+}
+
+.div-admin-button button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+	padding: 10px;
+	border: 1px solid #1D6154;
 }
 
 .filters {
@@ -155,8 +248,22 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
+
+.div-projects {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 50px;
+	align-items: center;
+}
+
+#span-admin-modif {
+	position: absolute;
+	right: 30%;
+	cursor: pointer;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;

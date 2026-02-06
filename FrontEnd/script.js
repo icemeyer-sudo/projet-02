@@ -56,12 +56,68 @@ if(token) {
     const aLogin = document.getElementById("a-login");
     document.getElementById("a-login").href="";
     aLogin.innerText = "";
-    aLogin.innerText = "Logout";
+    aLogin.innerText = "logout";
 
+    const divEditionMode = document.getElementById("div-edition-mode");
+    divEditionMode.classList.toggle("disabled");
+
+    const spanAdminModif = document.getElementById("span-admin-modif");
+    spanAdminModif.classList.toggle("disabled");
+
+    const divFilters = document.getElementById("filters");
+    divFilters.classList.add("disabled");
+
+    function addAdmin() {
+        
+        const divAdmin = document.getElementById("div-admin");
+        divAdmin.classList.remove("disabled");
+
+        const bgBrightness = document.getElementById("super-container");
+        bgBrightness.classList.add("brightness");
+        console.log(bgBrightness);
+
+    };
+          
+    function removeAdmin() {
+
+        document.addEventListener("click", (event) => {
+
+            const divAdmin = document.getElementById("div-admin");
+            const bgBrightness = document.getElementById("super-container");
+            const spanAdminModif = document.getElementById("span-admin-modif");
+            const crossAdmin = document.getElementById("div-close-admin");
+
+            if((!divAdmin.contains(event.target) && !spanAdminModif.contains(event.target)) || crossAdmin.contains(event.target)) {
+
+                divAdmin.classList.add("disabled");
+                bgBrightness.classList.remove("brightness");
+
+            }
+
+        });
+
+    };
+
+    spanAdminModif.addEventListener("click", addAdmin);
+
+    removeAdmin();
+
+    // Déconnexion
     aLogin.addEventListener("click", function () {
 
         window.localStorage.removeItem("token");
 
     });
 
-}
+    for (let i = 0; i < data.length; i++) {
+
+        const adminGallery = document.querySelector(".div-admin-gallery");
+
+        const img = document.createElement("img");
+        img.src = data[i].imageUrl;
+
+        adminGallery.appendChild(img);
+
+    }
+
+};

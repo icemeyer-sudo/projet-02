@@ -30,9 +30,6 @@ btnSubmit.addEventListener("click", async function () {
             "Content-Type": "application/json" ,
             "Authorization" : "Bearer <token>"
         }
-
-
-
         
     });
 
