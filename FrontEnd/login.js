@@ -2,7 +2,9 @@
 
 const token = window.localStorage.getItem("token");
 
-console.log(token);
+if (token) {
+    console.log(token);
+}
 
 const btnSubmit = document.getElementById("btn-submit");
 
@@ -13,6 +15,7 @@ btnSubmit.addEventListener("click", async function () {
     const inputEmail = document.getElementById("e-mail").value;
     const inputPassword = document.getElementById("password").value;
 
+    // Identifiant déjà entré pour aller plus vite
     let user = {
         email: "sophie.bluel@test.tld",
         password: "S0phie"

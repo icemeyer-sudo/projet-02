@@ -56,7 +56,6 @@ table {
 /** end reset css**/
 
 #div-edition-mode {
-	width: 100%;
 	background-color: black;
 	color: white;
 	text-align: center;
@@ -116,26 +115,50 @@ section {
 	font-size: 20px;
 }
 
+#div-return-admin {
+	position: absolute;
+	padding: 10px;
+	top: 0;
+	left: 0;
+	font-family: 'Syne';
+	font-size: 20px;
+}
+
 #div-close-admin:hover {
 	color: #1D6154;
 	cursor: pointer;
 }
 
-.div-admin-title {
+#div-admin-title {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 }
 
-.div-admin-title h3 {
+#div-admin-title h3 {
 	font-size: 26px;
 	font-family: 'Work Sans' ;
 	margin-bottom: 50px;
 }
 
+.js-admin-div {
+	position: relative;
+}
+
+.admin-trash-img {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin: 5px;
+	padding: 2px 4px 2px 4px;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+}
+
 .div-admin-gallery {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	gap: 30px 10px;
 }
 
