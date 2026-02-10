@@ -12,6 +12,12 @@ const response = await fetch("http://localhost:5678/api/works", {
 });
 const data = await response.json();
 
+const categoriesResponse = await fetch("http://localhost:5678/api/categories", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+});
+const categoriesData = await categoriesResponse.json();
+
 document.querySelector(".gallery").innerHTML = '';
 import {gallery} from '/modules/gallery.js';
 
@@ -75,6 +81,9 @@ if(token) {
         
         const divAdmin = document.getElementById("div-admin");
         divAdmin.classList.remove("disabled");
+        divAdmin.classList.add("able");
+
+        const modalOpen = document.getElementById("div-admin").classList[0];
 
         const bgBrightness = document.getElementById("super-container");
         bgBrightness.classList.add("brightness");
@@ -83,23 +92,37 @@ if(token) {
           
     function removeAdmin() {
 
-        document.addEventListener("click", (event) => {
+        const modalOpen = document.getElementById("div-admin").classList[0];
 
-            const divAdmin = document.getElementById("div-admin");
-            const bgBrightness = document.getElementById("super-container");
-            const spanAdminModif = document.getElementById("span-admin-modif");
-            const crossAdmin = document.getElementById("div-close-admin");
+            document.addEventListener("click", (event) => {
 
-            if((!divAdmin.contains(event.target) && !spanAdminModif.contains(event.target)) || crossAdmin.contains(event.target)) {
+                const divAdmin = document.getElementById("div-admin");
+                const bgBrightness = document.getElementById("super-container");
+                const spanAdminModif = document.getElementById("span-admin-modif");
+                const crossAdmin = document.getElementById("div-close-admin");
+                const modalOpen = document.getElementById("div-admin").classList[0];
 
-                divAdmin.classList.add("disabled");
-                bgBrightness.classList.remove("brightness");
-                document.getElementById("div-return-admin").classList.add("disabled");
-                document.getElementById("divAdminGallery").classList.remove("disabled");
+                if((!divAdmin.contains(event.target) && !spanAdminModif.contains(event.target)) || crossAdmin.contains(event.target)) {
 
-            };
+                    if (modalOpen === "able") {
+                        
+                        divAdmin.classList.add("disabled");
+                        bgBrightness.classList.remove("brightness");
+                        document.getElementById("div-return-admin").classList.add("disabled");
+                        document.getElementById("divAdminGallery").classList.remove("disabled");
+                        document.getElementById("js-btn-add").classList.remove("disabled");
 
-        });
+                        if(document.getElementById("admin-div-upload")) {
+                            document.getElementById("admin-div-upload").remove();
+                        }
+
+                    }
+
+                };
+
+            });
+
+        
 
     };
 
@@ -134,7 +157,7 @@ if(token) {
         const jsTrashImg = document.createElement("p");
         jsTrashImg.classList.add("admin-trash-img");
         jsTrashImg.innerText = "X";
-        jsTrashImg.setAttribute("id", "numeroId" + data[i].id)
+        jsTrashImg.setAttribute("data-id", data[i].id)
 
         // On ajout l'image dans la balise div
         jsAdminDiv.appendChild(img);
@@ -146,15 +169,75 @@ if(token) {
     document.getElementById("js-btn-add").addEventListener("click", () => {
         
         document.getElementById("divAdminGallery").classList.add("disabled");
+        document.getElementById("js-btn-add").classList.add("disabled");
         document.getElementById("div-return-admin").classList.remove("disabled");
+
+
+        const divAdmin = document.getElementById("div-admin");
+
+        const uploadImg = document.createElement("div");
+        uploadImg.setAttribute("id", "admin-div-upload");
+
+        divAdmin.insertBefore(uploadImg, divAdmin.childNodes[6]);
+
+        // Création du formulaire
+        const formUpload = document.createElement("form");
+        document.getElementById("admin-div-upload").appendChild(formUpload);
+        formUpload.setAttribute("class", "form-upload");
+
+        // Création de l'input file
+        const inputFile = document.createElement("input");
+        inputFile.setAttribute("type", "file");
+        document.querySelector("#admin-div-upload form").insertBefore(inputFile, document.querySelector("#admin-div-upload form").childNodes[1]);
+
+        // Création de l'input title
+        const inputTitle = document.createElement("input");
+        inputTitle.setAttribute("type", "text");
+        inputTitle.setAttribute("id", "title");
+        document.querySelector("#admin-div-upload form").insertBefore(inputTitle, document.querySelector("#admin-div-upload form").childNodes[2]);
+
+        // Création de l'input select pour les catégories
+        const inputSelect = document.createElement("select");
+        inputSelect.setAttribute("id", "categorie");
+        document.querySelector("#admin-div-upload form").insertBefore(inputSelect, document.querySelector("#admin-div-upload form").childNodes[3]);
+
+        // Récupération des catégories + options du select
+        for (let i = 0; i < categoriesData.length; i++) {
+
+            const selectOption = document.createElement("option");
+            selectOption.value = categoriesData[i].id;
+            selectOption.setAttribute("id", `categorie-${categoriesData[i].id}`);
+            selectOption.innerText = categoriesData[i].name;
+            document.querySelector("#admin-div-upload form select").insertBefore(selectOption, document.querySelector("#admin-div-upload form select").childNodes[i]);
+
+        }
+
+        // Création du bouton envoyer
+        const btnUpload = document.createElement("button");
+        btnUpload.value = "Valider";
+        btnUpload.id = "btnUpload"
+        btnUpload.innerText = "Valider";
+        btnUpload.classList.add("btn-upload");
+        formUpload.appendChild(btnUpload);
         
     });
 
-    // Quand on clique sur la flèche retour
-    document.getElementById("div-return-admin").addEventListener("click", () => {
+    // Quand on clique sur le bouton valider l'envoi
+    const btnUpload = document.addEventListener("click", (event) => {
 
+        event.preventDefault();
+        
+        // Vérification si les champs input sont remplis
+        
+
+    });
+
+    // Quand on clique sur la flèche retour
+        document.getElementById("div-return-admin").addEventListener("click", () => {
         document.getElementById("divAdminGallery").classList.remove("disabled");
         document.getElementById("div-return-admin").classList.add("disabled");
+        document.getElementById("admin-div-upload").remove();
+        document.getElementById("js-btn-add").classList.remove("disabled");
 
     });
 
@@ -165,12 +248,26 @@ if(token) {
 
         jsClickTrash[i].addEventListener("click", () => {
 
-            const jsIdImgTrash = jsClickTrash[i].getAttribute("id");
+            const jsIdImgTrash = jsClickTrash[i].getAttribute("data-id");
             console.log(jsIdImgTrash);
+            removeContain(jsIdImgTrash);
 
         })
 
     }
+
+    function removeContain(id) {
+
+        fetch("http://localhost:5678/api/works/" + id, {
+            method: "DELETE",
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    }
+
+    
 
 
 };

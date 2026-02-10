@@ -174,7 +174,7 @@ section {
 	padding-top: 50px;
 }
 
-.div-admin-button button {
+.btn-upload {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -184,6 +184,16 @@ section {
 	border-radius: 60px ;
 	padding: 10px;
 	border: 1px solid #1D6154;
+}
+
+.div-admin-upload-img {
+
+}
+
+.form-upload {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .filters {
