@@ -1,8 +1,10 @@
 // Récupération du token si il existe dans le local storage
 const token = window.localStorage.getItem("token");
+const userId = window.localStorage.getItem("userId");
 
 if (token) {
     console.log(token);
+    console.log(userId);
 }
 
 // On récupère le contenu sur l'API
@@ -76,6 +78,7 @@ if(token) {
 
     const divFilters = document.getElementById("filters");
     divFilters.classList.add("disabled");
+
 
     function addAdmin() {
         
@@ -165,7 +168,7 @@ if(token) {
 
     };
 
-    // Quand on clique sur ajouter une photo
+    // Quand on clique sur le bouton pour ouvrir la page d'upload d'image
     document.getElementById("js-btn-add").addEventListener("click", () => {
         
         document.getElementById("divAdminGallery").classList.add("disabled");
@@ -184,21 +187,30 @@ if(token) {
         const formUpload = document.createElement("form");
         document.getElementById("admin-div-upload").appendChild(formUpload);
         formUpload.setAttribute("class", "form-upload");
+        formUpload.setAttribute("enctype", "multipart/form-data");
+
+        const divFile = document.createElement("div");
+        divFile.setAttribute("id", "div-file-upload");
+        document.querySelector("#admin-div-upload form").insertBefore(divFile, document.querySelector("#admin-div-upload form").childNodes[1]);
 
         // Création de l'input file
         const inputFile = document.createElement("input");
         inputFile.setAttribute("type", "file");
-        document.querySelector("#admin-div-upload form").insertBefore(inputFile, document.querySelector("#admin-div-upload form").childNodes[1]);
+        inputFile.setAttribute("id", "file")
+        inputFile.setAttribute("name", "file")
+        divFile.appendChild(inputFile);
 
         // Création de l'input title
         const inputTitle = document.createElement("input");
         inputTitle.setAttribute("type", "text");
         inputTitle.setAttribute("id", "title");
+        inputTitle.setAttribute("name", "title");
         document.querySelector("#admin-div-upload form").insertBefore(inputTitle, document.querySelector("#admin-div-upload form").childNodes[2]);
 
         // Création de l'input select pour les catégories
         const inputSelect = document.createElement("select");
         inputSelect.setAttribute("id", "categorie");
+        inputSelect.setAttribute("name", "categorie");
         document.querySelector("#admin-div-upload form").insertBefore(inputSelect, document.querySelector("#admin-div-upload form").childNodes[3]);
 
         // Récupération des catégories + options du select
@@ -219,16 +231,61 @@ if(token) {
         btnUpload.innerText = "Valider";
         btnUpload.classList.add("btn-upload");
         formUpload.appendChild(btnUpload);
-        
-    });
 
-    // Quand on clique sur le bouton valider l'envoi
-    const btnUpload = document.addEventListener("click", (event) => {
+        // Quand on sélectionne une photo à envoyer
+        const newFile = document.getElementById("file");
+        newFile.addEventListener("change", () => {
 
-        event.preventDefault();
+            const newImg = newFile.files[0]
+            const previewPicture = document.createElement("img");
+            document.querySelector("#div-file-upload").appendChild(previewPicture);
+
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                previewPicture.src = e.target.result;
+            };
+
+            reader.readAsDataURL(newImg);
+
+            document.getElementById("file").classList.add("disabled");
+
+        });
+
         
-        // Vérification si les champs input sont remplis
-        
+        // Quand on clique sur le bouton valider l'envoi
+        btnUpload.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            const uploadForm = document.querySelector("#admin-div-upload form");
+            
+            // Vérification si les champs input sont remplis
+            
+            const newTitle = document.getElementById("title");
+            const newCategorie = document.getElementById("categorie");
+
+            if(newTitle.value === "") {
+                console.log("Entrez un titre");
+                return;
+            }
+            if(newFile.value === "") {
+                console.log("Ajoutez une photo pour que ça marche")
+                return;
+            }
+
+            const newImg = newFile.files[0]
+            document.getElementById("file").classList.remove("disabled");
+            document.querySelector("#div-file-upload img").remove();
+
+
+            let titleNew = document.getElementById("title").value;
+            let categorieNew = document.getElementById("categorie").value;
+
+            uploadForm.reset();
+            uploadPicture(newImg, titleNew, categorieNew);
+
+        });
 
     });
 
@@ -267,7 +324,42 @@ if(token) {
         });
     }
 
-    
-
 
 };
+
+function uploadPicture (image, title, category) {
+
+    /*let id = data.lenght + 1;
+
+    let dataUpload = {
+        "imageUrl": image,
+        "title": title,
+        "categoryId": category,
+        "id": id,
+        "userId": userId
+
+    }
+
+    let dataUpload = new FormData()
+    data.append('file', image)
+    data.append('title', title)
+    data.append('category', category)*/
+
+    const form = document.querySelector("form");
+
+    const formData = new FormData(form);
+
+    for (const item of formData) {
+        console.log(item[0], item[1]);
+    }
+
+    /*fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        body: JSON.stringify(dataUpload),
+        headers: { 
+            'Content-Type': 'multipart',
+            'Authorization': `Bearer ${token}`
+        }
+    })*/
+
+}

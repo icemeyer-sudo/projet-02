@@ -8,9 +8,9 @@ if (token) {
 
 const btnSubmit = document.getElementById("btn-submit");
 
-btnSubmit.addEventListener("click", async function () {
+btnSubmit.addEventListener("click", async function (event) {
 
-    event.preventDefault(); // Désactive le btn
+    event.preventDefault(); // Désactive le comportement du btn
 
     const inputEmail = document.getElementById("e-mail").value;
     const inputPassword = document.getElementById("password").value;
@@ -30,8 +30,7 @@ btnSubmit.addEventListener("click", async function () {
         method: "POST",
         body: JSON.stringify(user),
         headers: { 
-            "Content-Type": "application/json" ,
-            "Authorization" : "Bearer <token>"
+            "Content-Type": "application/json"
         }
         
     });
@@ -41,8 +40,10 @@ btnSubmit.addEventListener("click", async function () {
         const req = await request.json();
 
         const token = req.token;
+        const userId = req.userId;
 
         window.localStorage.setItem("token", token);
+        window.localStorage.setItem("userId", userId);
 
         window.location.href = "index.html";
 
