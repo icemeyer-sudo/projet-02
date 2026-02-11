@@ -2,11 +2,6 @@
 const token = window.localStorage.getItem("token");
 const userId = window.localStorage.getItem("userId");
 
-if (token) {
-    console.log(token);
-    console.log(userId);
-}
-
 // On récupère le contenu sur l'API
 const response = await fetch("http://localhost:5678/api/works", {
     method: "GET",
@@ -347,19 +342,23 @@ function uploadPicture (image, title, category) {
 
     const form = document.querySelector("form");
 
-    const formData = new FormData(form);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", image);
 
-    for (const item of formData) {
-        console.log(item[0], item[1]);
+    for (let [name, value] of formData) {
+        console.log(name);
+        console.log(value);
     }
 
-    /*fetch("http://localhost:5678/api/works", {
+    fetch("http://localhost:5678/api/works", {
         method: "POST",
-        body: JSON.stringify(dataUpload),
+        body: formData,
         headers: { 
-            'Content-Type': 'multipart',
+            
             'Authorization': `Bearer ${token}`
         }
-    })*/
+    })
 
 }
