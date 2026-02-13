@@ -24,17 +24,11 @@
 
 		<div class="overlay modal-trigger"></div>
 
-		<div id="div-admin">
+		<div id="div-admin" class="div-admin">
 
 			<div id="div-close-admin" class="modal-trigger">
 
 				<p>x</p>
-
-			</div>
-
-			<div id="div-return-admin" class="disabled">
-
-				<p><i class="fa-solid fa-arrow-left-long"></i></p>
 
 			</div>
 
@@ -58,11 +52,44 @@
 
 		</div>
 
-		<div id="div-admin-upload" class="">
+		<div id="div-admin-upload" class="div-admin">
 
 			<div id="div-close-admin" class="modal-trigger">
 
 				<p>x</p>
+
+			</div>
+
+			<div id="div-return-admin">
+
+				<p><i class="fa-solid fa-arrow-left-long"></i></p>
+
+			</div>
+
+			<div id="div-admin-title">
+
+				<h3>Ajout photo</h3>
+
+			</div>
+
+			<div class="admin-div-upload">
+
+				<form class="form-upload" enctype="multipart/form-data">
+
+					<div id="div-file-upload">
+
+						<input type="file" id="file" name="file">
+
+					</div>
+					<input type="text" id="title" name="title">
+					<select id="categorie" name="categorie">
+						<!-- JS -->
+					</select>
+
+					<button id="valider" class="btn-upload">Valider</button>
+
+
+				</form>
 
 			</div>
 
