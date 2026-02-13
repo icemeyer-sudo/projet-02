@@ -1,11 +1,10 @@
+import {gallery} from '/modules/gallery.js';
+import {modalToggle} from '/modules/modal-toggle.js';
+import {modalUpload} from '/modules/modal-upload.js';
+
 // Récupération du token si il existe dans le local storage
 const token = window.localStorage.getItem("token");
 const userId = window.localStorage.getItem("userId");
-
-if (token) {
-    console.log(token);
-    console.log(userId);
-}
 
 // On récupère le contenu sur l'API
 const response = await fetch("http://localhost:5678/api/works", {
@@ -21,7 +20,6 @@ const categoriesResponse = await fetch("http://localhost:5678/api/categories", {
 const categoriesData = await categoriesResponse.json();
 
 document.querySelector(".gallery").innerHTML = '';
-import {gallery} from '/modules/gallery.js';
 
 gallery(data);
 
@@ -79,59 +77,8 @@ if(token) {
     const divFilters = document.getElementById("filters");
     divFilters.classList.add("disabled");
 
-
-    function addAdmin() {
-        
-        const divAdmin = document.getElementById("div-admin");
-        divAdmin.classList.remove("disabled");
-        divAdmin.classList.add("able");
-
-        const modalOpen = document.getElementById("div-admin").classList[0];
-
-        const bgBrightness = document.getElementById("super-container");
-        bgBrightness.classList.add("brightness");
-
-    };
-          
-    function removeAdmin() {
-
-        const modalOpen = document.getElementById("div-admin").classList[0];
-
-            document.addEventListener("click", (event) => {
-
-                const divAdmin = document.getElementById("div-admin");
-                const bgBrightness = document.getElementById("super-container");
-                const spanAdminModif = document.getElementById("span-admin-modif");
-                const crossAdmin = document.getElementById("div-close-admin");
-                const modalOpen = document.getElementById("div-admin").classList[0];
-
-                if((!divAdmin.contains(event.target) && !spanAdminModif.contains(event.target)) || crossAdmin.contains(event.target)) {
-
-                    if (modalOpen === "able") {
-                        
-                        divAdmin.classList.add("disabled");
-                        bgBrightness.classList.remove("brightness");
-                        document.getElementById("div-return-admin").classList.add("disabled");
-                        document.getElementById("divAdminGallery").classList.remove("disabled");
-                        document.getElementById("js-btn-add").classList.remove("disabled");
-
-                        if(document.getElementById("admin-div-upload")) {
-                            document.getElementById("admin-div-upload").remove();
-                        }
-
-                    }
-
-                };
-
-            });
-
-        
-
-    };
-
-    spanAdminModif.addEventListener("click", addAdmin);
-
-    removeAdmin();
+    // Si on clique sur le bouton "ajouter une photo"
+    modalToggle();
 
     // Déconnexion
     aLogin.addEventListener("click", function () {
@@ -149,6 +96,8 @@ if(token) {
         const div = document.createElement("div");
         div.classList.add("js-admin-div-" + i);
         div.classList.add("js-admin-div");
+        div.id = "div-id-" + data[i].id;
+        div.setAttribute("div-id", data[i].id);
         adminGallery.appendChild(div);
 
         // Création de l'image
@@ -169,7 +118,10 @@ if(token) {
     };
 
     // Quand on clique sur le bouton pour ouvrir la page d'upload d'image
-    document.getElementById("js-btn-add").addEventListener("click", () => {
+    document.getElementById("js-btn-add").addEventListener("click", modalUpload);
+
+    // Quand on clique sur le bouton pour ouvrir la page d'upload d'image
+    /*document.getElementById("js-btn-add").addEventListener("click", () => {
         
         document.getElementById("divAdminGallery").classList.add("disabled");
         document.getElementById("js-btn-add").classList.add("disabled");
@@ -287,10 +239,11 @@ if(token) {
 
         });
 
-    });
+    });*/
 
     // Quand on clique sur la flèche retour
-        document.getElementById("div-return-admin").addEventListener("click", () => {
+    document.getElementById("div-return-admin").addEventListener("click", () => {
+
         document.getElementById("divAdminGallery").classList.remove("disabled");
         document.getElementById("div-return-admin").classList.add("disabled");
         document.getElementById("admin-div-upload").remove();
@@ -306,7 +259,9 @@ if(token) {
         jsClickTrash[i].addEventListener("click", () => {
 
             const jsIdImgTrash = jsClickTrash[i].getAttribute("data-id");
-            console.log(jsIdImgTrash);
+            const divId = document.getElementById("div-id-"+ jsIdImgTrash);
+            divId.remove();
+            
             removeContain(jsIdImgTrash);
 
         })
@@ -322,6 +277,7 @@ if(token) {
                 'Authorization': `Bearer ${token}`
             }
         });
+
     }
 
 
@@ -329,37 +285,24 @@ if(token) {
 
 function uploadPicture (image, title, category) {
 
-    /*let id = data.lenght + 1;
-
-    let dataUpload = {
-        "imageUrl": image,
-        "title": title,
-        "categoryId": category,
-        "id": id,
-        "userId": userId
-
-    }
-
-    let dataUpload = new FormData()
-    data.append('file', image)
-    data.append('title', title)
-    data.append('category', category)*/
-
     const form = document.querySelector("form");
 
-    const formData = new FormData(form);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", image);
 
-    for (const item of formData) {
-        console.log(item[0], item[1]);
+    for (let [name, value] of formData) {
+        console.log(name);
+        console.log(value);
     }
 
-    /*fetch("http://localhost:5678/api/works", {
+    fetch("http://localhost:5678/api/works", {
         method: "POST",
-        body: JSON.stringify(dataUpload),
+        body: formData,
         headers: { 
-            'Content-Type': 'multipart',
             'Authorization': `Bearer ${token}`
         }
-    })*/
+    })
 
 }
