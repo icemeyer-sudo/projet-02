@@ -1,11 +1,16 @@
-export function modalUpload(categoriesData, token) {
+import {uploadPicture} from '/modules/fn-upload-picture.js';
+import {returnToAdmin} from '/modules/fn-return-to-admin.js';
 
+export function modalUpload(categoriesData, token, data) {
+
+    // Affichage de la page
     const modalGallery = document.querySelector("#div-admin");
     const modalUpload = document.querySelector("#div-admin-upload");
 
-    modalGallery.classList.toggle("active");
-    modalUpload.classList.toggle("active");
+    modalGallery.classList.remove("active");
+    modalUpload.classList.add("active");
 
+    // Importation des catégories
     for (let i = 0; i < categoriesData.length; i++) {
 
         const selectOption = document.createElement("option");
@@ -16,36 +21,43 @@ export function modalUpload(categoriesData, token) {
 
     }
 
+    // Prévisualisation
     const newFile = document.getElementById("file");
     newFile.addEventListener("change", () => {
 
-        const newImg = newFile.files[0]
+        // Supprime la preview précédente si changement de fichier chargé
+        if(document.getElementById("preview-picture")) {
+
+            document.getElementById("preview-picture").remove();
+
+        }
+
+        const newImg = newFile.files[0];
         const previewPicture = document.createElement("img");
+        previewPicture.setAttribute("id", "preview-picture")
         document.querySelector("#div-file-upload").appendChild(previewPicture);
 
         const reader = new FileReader();
+        reader.readAsDataURL(newImg);   
         
-        reader.onload = (e) => {
-            previewPicture.src = e.target.result;
-        };
+        reader.addEventListener("load", () => {
 
-        reader.readAsDataURL(newImg);
+            previewPicture.src = reader.result;
+
+        });
 
         document.getElementById("file").classList.add("disabled");
 
     });
 
+    // Action du bouton valider
     const btnUpload = document.getElementById("valider");
     btnUpload.addEventListener("click", (event) => {
 
         event.preventDefault();
-
-        const uploadForm = document.querySelector(".form-upload");
         
         // Vérification si les champs input sont remplis
-        
         const newTitle = document.getElementById("title");
-        const newCategorie = document.getElementById("categorie");
 
         if(newTitle.value === "") {
             console.log("Entrez un titre");
@@ -56,41 +68,20 @@ export function modalUpload(categoriesData, token) {
             return;
         }
 
+        // Données à envoyer + fonction uploadPicture
         const newImg = newFile.files[0]
-        document.getElementById("file").classList.remove("disabled");
-        document.querySelector("#div-file-upload img").remove();
-
-
         let titleNew = document.getElementById("title").value;
         let categorieNew = document.getElementById("categorie").value;
+        uploadPicture(newImg, titleNew, categorieNew, token, data);
 
-        uploadForm.reset();
-        uploadPicture(newImg, titleNew, categorieNew);
+        // Reset du formulaire
+        document.getElementById("file").classList.remove("disabled");
+        document.querySelector("#div-file-upload img").remove();
+        document.querySelector(".form-upload").reset();
 
     });
-
-    function uploadPicture (image, title, category) {
-
-    const form = document.querySelector("form");
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("category", category);
-    formData.append("image", image);
-
-    for (let [name, value] of formData) {
-        console.log(name);
-        console.log(value);
-    }
-
-    fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        body: formData,
-        headers: { 
-            'Authorization': `Bearer ${token}`
-        }
-    })
-
-}
+    
+    // Flèche de retour au menu précédent
+    returnToAdmin();
 
 }

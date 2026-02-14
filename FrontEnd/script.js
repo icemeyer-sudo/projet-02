@@ -1,26 +1,20 @@
 import {gallery} from '/modules/gallery.js';
 import {modalToggle} from '/modules/modal-toggle.js';
 import {modalUpload} from '/modules/modal-upload.js';
+import {fetchWorks} from '/modules/fetch-works.js';
+import {fetchCategories} from '/modules/fetch-categories.js';
 
 // Récupération du token si il existe dans le local storage
 const token = window.localStorage.getItem("token");
 const userId = window.localStorage.getItem("userId");
 
-// On récupère le contenu sur l'API
-const response = await fetch("http://localhost:5678/api/works", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-});
-const data = await response.json();
+// Fetch les works
+const data = await fetchWorks();
 
-const categoriesResponse = await fetch("http://localhost:5678/api/categories", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-});
-const categoriesData = await categoriesResponse.json();
+// Fetch les categories pour les filtres
+const categoriesData = await fetchCategories();
 
-document.querySelector(".gallery").innerHTML = '';
-
+// Afficahge de la galerie
 gallery(data);
 
 const btnFilters = document.querySelectorAll(".btnFilters");
@@ -80,6 +74,13 @@ if(token) {
     // Si on clique sur le bouton "ajouter une photo"
     modalToggle();
 
+    // Quand on clique sur le bouton pour ouvrir la page d'upload d'image
+    document.getElementById("js-btn-add").addEventListener("click", () => {
+
+        modalUpload(categoriesData, token, data);
+
+    });
+
     // Déconnexion
     aLogin.addEventListener("click", function () {
 
@@ -116,23 +117,6 @@ if(token) {
         jsAdminDiv.appendChild(jsTrashImg)
 
     };
-
-    // Quand on clique sur le bouton pour ouvrir la page d'upload d'image
-    document.getElementById("js-btn-add").addEventListener("click", () => {
-
-        modalUpload(categoriesData, token);
-
-    });
-
-    // Quand on clique sur la flèche retour
-    document.getElementById("div-return-admin").addEventListener("click", () => {
-
-        document.getElementById("divAdminGallery").classList.remove("disabled");
-        document.getElementById("div-return-admin").classList.add("disabled");
-        document.getElementById("admin-div-upload").remove();
-        document.getElementById("js-btn-add").classList.remove("disabled");
-
-    });
 
     // Quand on clique sur l'icone poubelle
     const jsClickTrash = document.querySelectorAll(".admin-trash-img");
