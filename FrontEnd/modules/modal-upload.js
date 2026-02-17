@@ -10,17 +10,6 @@ export function modalUpload(categoriesData, token, data) {
     modalGallery.classList.remove("active");
     modalUpload.classList.add("active");
 
-    // Importation des catégories
-    for (let i = 0; i < categoriesData.length; i++) {
-
-        const selectOption = document.createElement("option");
-        selectOption.value = categoriesData[i].id;
-        selectOption.setAttribute("id", `categorie-${categoriesData[i].id}`);
-        selectOption.innerText = categoriesData[i].name;
-        document.querySelector("#categorie").insertBefore(selectOption, document.querySelector("#categorie").childNodes[i]);
-
-    }
-
     // Prévisualisation
     const newFile = document.getElementById("file");
     newFile.addEventListener("change", () => {

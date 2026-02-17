@@ -6,7 +6,7 @@ export function modalToggle() {
     const modalGallery = document.querySelector("#div-admin");
     const modalGalleryUpload = document.querySelector("#div-admin-upload");
 
-    // Au click du bouton modifier
+    // Au clic du bouton modifier
     modalBtnTrigger.addEventListener("click", triggerBtnModal)
     function triggerBtnModal() {
 
@@ -15,6 +15,7 @@ export function modalToggle() {
 
     }
 
+    // Pour refermer la modale
     // On parcourt le tableau qui contient tous les modalTriggers
     // Même chose que for(let i = 0; i < modalTriggers.length; i++)
     modalTriggers.forEach(e => e.addEventListener("click", triggerModal))
