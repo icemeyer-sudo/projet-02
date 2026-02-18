@@ -1,4 +1,4 @@
-import {gallery} from '/modules/gallery.js';
+import {gallery} from '/modules/gallery/index.js';
 
 // On écoute les boutons de filtres
 export function btnFilters (data) {
@@ -14,7 +14,6 @@ export function btnFilters (data) {
             if(dataId == 0) {
 
                 const resFilter = data;
-                console.log(resFilter);
                 document.querySelector(".gallery").innerHTML = '';
                 gallery(resFilter);
 
@@ -28,7 +27,6 @@ export function btnFilters (data) {
                     return j.categoryId == dataId;
 
                 });
-                console.log(resFilter);
                 document.querySelector(".gallery").innerHTML = '';
                 gallery(resFilter);
 

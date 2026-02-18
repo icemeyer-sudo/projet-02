@@ -1,4 +1,4 @@
-import {fetchDelete} from '/modules/fetch.js';
+import {fetchDelete} from '/modules/api/fetch.js';
 
 // Quand on clique sur l'icone poubelle d'une image
 export function removeContent(token) {
@@ -9,8 +9,14 @@ export function removeContent(token) {
         e.addEventListener("click", () => {
 
             const id = e.getAttribute("data-id");
+
+            // Suppression de la photo de la modale
             const divId = document.getElementById("div-id-"+ id);
             divId.remove();
+
+            // Suppression de la photo de la gallerie index
+            const figureId = document.getElementById("figure-id-"+ id);
+            figureId.remove();
             
             fetchDelete(id, token);
 

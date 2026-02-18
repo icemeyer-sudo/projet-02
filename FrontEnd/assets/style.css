@@ -123,22 +123,20 @@ section {
 #div-close-admin {
 	position: absolute;
 	padding: 10px;
-	top: 0;
-	right: 0;
-	font-family: 'Syne';
+	top: 5px;
+	right: 5px;
 	font-size: 20px;
 }
 
 #div-return-admin {
 	position: absolute;
 	padding: 10px;
-	top: 0;
-	left: 0;
-	font-family: 'Syne';
+	top: 5px;
+	left: 5px;
 	font-size: 20px;
 }
 
-#div-close-admin:hover {
+#div-close-admin:hover, #div-return-admin:hover {
 	color: #1D6154;
 	cursor: pointer;
 }
@@ -164,8 +162,9 @@ section {
 	top: 0px;
 	right: 0px;
 	margin: 5px;
-	padding: 2px 4px 2px 4px;
-	border-radius: 5px;
+	padding: 5px;
+	border-radius: 2px;
+	font-size: 11px;
 	background-color: black;
 	color: white;
 	cursor: pointer;
@@ -204,6 +203,7 @@ section {
 	border-radius: 60px ;
 	padding: 10px;
 	border: 1px solid #1D6154;
+	cursor: pointer;
 }
 
 #div-file-upload {

@@ -1,14 +1,19 @@
-import {uploadPicture} from '/modules/fn-upload-picture.js';
-import {returnToAdmin} from '/modules/fn-return-to-admin.js';
+import {uploadPicture} from '/modules/upload/uploadPicture.js';
+import {modalBack, resetForm, toggleAdminUpload} from '/modules/modal/index.js';
 
-export function modalUpload(categoriesData, token, data) {
+export function adminUpload(token, data, categoriesData) {
 
-    // Affichage de la page
-    const modalGallery = document.querySelector("#div-admin");
-    const modalUpload = document.querySelector("#div-admin-upload");
-
-    modalGallery.classList.remove("active");
-    modalUpload.classList.add("active");
+    // Chargement de la modale adminUpload au clic
+    toggleAdminUpload();
+    
+    // Création des catégories dans le select du menu d'ajout de photo
+    categoriesData.forEach((e) => {
+        const selectOption = document.createElement("option");
+        selectOption.value = e.id;
+        selectOption.setAttribute("id", `categorie-${e.id}`);
+        selectOption.innerText = e.name;
+        document.querySelector("#categorie").insertBefore(selectOption, document.querySelector("#categorie").childNodes[e.id]);
+    });
 
     // Prévisualisation
     const newFile = document.getElementById("file");
@@ -35,6 +40,7 @@ export function modalUpload(categoriesData, token, data) {
 
         });
 
+        // L'input file disparait
         document.getElementById("file").classList.add("disabled");
 
     });
@@ -61,16 +67,16 @@ export function modalUpload(categoriesData, token, data) {
         const newImg = newFile.files[0]
         let titleNew = document.getElementById("title").value;
         let categorieNew = document.getElementById("categorie").value;
+
         uploadPicture(newImg, titleNew, categorieNew, token, data);
 
-        // Reset du formulaire
-        document.getElementById("file").classList.remove("disabled");
-        document.querySelector("#div-file-upload img").remove();
-        document.querySelector(".form-upload").reset();
+        resetForm();
 
     });
     
-    // Flèche de retour au menu précédent
-    returnToAdmin();
+    // Flèche de retour vers le menu précédent
+    modalBack();
+
+
 
 }

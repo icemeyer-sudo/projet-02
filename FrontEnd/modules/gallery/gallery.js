@@ -5,6 +5,7 @@ export function gallery (data) {
         const gallery = document.querySelector(".gallery");
         const figure = document.createElement("figure");
         figure.setAttribute("class", "figureGallery");
+        figure.setAttribute("id", "figure-id-" + data[i].id);
 
         const img = document.createElement("img");
         img.src = data[i].imageUrl;
