@@ -1,9 +1,7 @@
-import {toggleAdminGallery} from '/modules/modal/index.js';
+import {openAdminGallery} from '/modules/modal/index.js';
+import {removeContent} from '/modules/upload/removeContent.js';
 
-export function adminGallery (data) {
-
-    // Chargement de la modale adminGallery au clic
-    toggleAdminGallery();
+export function adminGallery (data, token) {
 
     // Création de la gallerie dans la modale admin
     data.forEach((e) => {
@@ -34,5 +32,11 @@ export function adminGallery (data) {
         div.appendChild(jsTrashImg)
 
     });
+
+    // Chargement de la modale adminGallery au clic
+    openAdminGallery();
+
+    // Suppression d'une photo
+    removeContent(token);
 
 }

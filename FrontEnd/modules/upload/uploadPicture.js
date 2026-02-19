@@ -1,4 +1,3 @@
-import {gallery} from '/modules/gallery/index.js';
 import {fetchPost} from '/modules/api/fetch.js';
 
 export async function uploadPicture (image, title, category, token) {
@@ -16,6 +15,7 @@ export async function uploadPicture (image, title, category, token) {
 
         const commits = await response.json();
 
+        /***** Partie adminGallery *****/
         //Création de la div
         const newDiv = document.createElement("div");
         newDiv.setAttribute("class", "js-admin-div");
@@ -34,38 +34,29 @@ export async function uploadPicture (image, title, category, token) {
         newCross.setAttribute("data-id", commits.id);
         newCross.classList.add("fa-solid");
         newCross.classList.add("fa-trash-can");
-        newCross.innerText = "";
         newDiv.appendChild(newCross);
+
+        /***** Partie publicGallery *****/
+        const gallery = document.querySelector(".gallery");
+        const figure = document.createElement("figure");
+        figure.setAttribute("class", "figureGallery");
+        figure.setAttribute("id", "figure-id-" + commits.id);
+
+        const img = document.createElement("img");
+        img.src = commits.imageUrl;
+        img.setAttribute("id", "numeroId" + commits.id)
+        img.setAttribute("class", "imageGallery");
+
+        const figcaption = document.createElement("figcaption");
+        figcaption.innerText = commits.title;
+
+        gallery.appendChild(figure);
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
 
     }else {
 
         alert("Erreur API");
-
-    }
-
-    // On supprime les images et les figures de la gallerie en vue de les remplacer
-    const nbimg = document.querySelectorAll(".imageGallery");
-    for (let i = 0; i < nbimg.length; i++) {
-        nbimg[i].remove();
-    }
-
-    const nbFigure = document.querySelectorAll(".figureGallery");
-    for (let i = 0; i < nbFigure.length; i++) {
-        nbFigure[i].remove();
-    }
-
-    // On fait appel à la fonction GET pour reconstituer la gallerie avec la nouvelle image
-    await fetchWorks();
-
-    async function fetchWorks () {
-        
-        const response = await fetch("http://localhost:5678/api/works", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        });
-        const data = await response.json();
-
-        await gallery(data);
 
     }
 

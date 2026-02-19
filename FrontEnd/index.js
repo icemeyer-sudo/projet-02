@@ -1,7 +1,7 @@
-import {gallery, btnFilters} from '/modules/gallery/index.js';
-import {fetchWorks, fetchCategories} from '/modules/api/fetch.js';
+import {gallery, filters} from '/modules/gallery/index.js';
+import {fetchGet} from '/modules/api/fetch.js';
 import {adminRun, adminContent} from '/modules/admin/index.js';
-import {removeToken} from '/modules/auth/removeToken.js';
+import {removeToken} from '/modules/auth/index.js';
 
 // Récupération du token si il existe dans le local storage
 const token = window.localStorage.getItem("token");
@@ -19,20 +19,20 @@ if(token) {
 };
 
 // Fetch les works
-const dataWorks = await fetchWorks();
+const dataWorks = await fetchGet("works");
 
 // Fetch les categories pour les filtres
-const DataCategories = await fetchCategories();
+const dataCategories = await fetchGet("categories");
 
 // Affichage de la galerie
 gallery(dataWorks);
 
-// Affichage des boutons de filtres
-btnFilters(dataWorks);
+// Création et events des boutons de filtres
+filters(dataWorks, dataCategories);
 
 // Charge le contenu admin des modales si connecté
 if(token) { 
 
-    adminRun(dataWorks, DataCategories, token) 
+    adminRun(dataWorks, dataCategories, token) 
     
 };

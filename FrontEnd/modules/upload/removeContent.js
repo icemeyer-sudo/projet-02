@@ -3,14 +3,13 @@ import {fetchDelete} from '/modules/api/fetch.js';
 // Quand on clique sur l'icone poubelle d'une image
 export function removeContent(token) {
 
-    const jsClickTrash = document.querySelectorAll(".admin-trash-img");
-    jsClickTrash.forEach((e) => {
+    const divAdminGallery = document.getElementById("divAdminGallery");
+    divAdminGallery.addEventListener("click", (e) => {
 
-        e.addEventListener("click", () => {
-
-            const id = e.getAttribute("data-id");
+        if(e.target.classList.contains("admin-trash-img")) {
 
             // Suppression de la photo de la modale
+            const id = e.target.getAttribute("data-id");
             const divId = document.getElementById("div-id-"+ id);
             divId.remove();
 
@@ -20,7 +19,7 @@ export function removeContent(token) {
             
             fetchDelete(id, token);
 
-        })
+        }
 
     })
 

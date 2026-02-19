@@ -1,4 +1,4 @@
-import {btnFilters} from '/modules/gallery/btnFilters.js';
+import {filters} from '/modules/gallery/filters.js';
 import {gallery} from '/modules/gallery/gallery.js';
 
-export {btnFilters, gallery}
+export {filters, gallery}

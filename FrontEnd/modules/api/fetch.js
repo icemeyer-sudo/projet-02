@@ -1,42 +1,26 @@
-// Récupère les catégories
-export async function fetchCategories() {
+// Récupère les works et les categories
+export async function fetchGet(target) {
 
     try {
 
-        const categoriesResponse = await fetch("http://localhost:5678/api/categories", {
+        const response = await fetch("http://localhost:5678/api/" + target, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
 
-        const categoriesData = await categoriesResponse.json();
-        return categoriesData;
+        const Data = await response.json();
+        return Data;
         
     } catch (error) {
 
         console.log(error);
 
-    }
+        if(target === "works") {
 
-}
+            let data = [];
+            return data;
 
-// Récupère les works
-export async function fetchWorks () {
-    
-    try {
-
-        const worksResponse = await fetch("http://localhost:5678/api/works", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        });
-
-        const data = await worksResponse.json();
-        return data;
-
-    } catch (error) {
-
-        console.log(error);
-        let data = [];
-        return data;
+        }
 
     }
 
@@ -63,24 +47,59 @@ export function fetchDelete(id, token) {
 
 }
 
-// Ajout un élément
-export async function fetchPost(formData, token) {
+// Ajout un élément ou identification
+export function fetchPost(data, token) {
 
-    try {
-        const postResponse = await fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            body: formData,
-            headers: { 
-                'Authorization': `Bearer ${token}`
-            }
-        })
+    if(!token) {
 
-        return postResponse;
+        const dataPost = JSON.stringify(data);
+        const headersPost = new Headers();
+        headersPost.append('Content-Type', 'application/json');
+        const targetPost = "users/login";
+        
+        return post(dataPost, headersPost, targetPost);
 
-    } catch (error) {
+    } else {
 
-        console.log(error);
+        const dataPost = data;
+        const headersPost = new Headers();
+        headersPost.append('Authorization', `Bearer ${token}`);
+        const targetPost = "works";
+
+        return post(dataPost, headersPost, targetPost)
+
+    }
+
+    function post(dataPost, headersPost, targetPost) {
+
+        try {
+
+            const postResponse = fetch("http://localhost:5678/api/" + targetPost, {
+                method: "POST",
+                body: dataPost,
+                headers: headersPost
+                
+            })
+
+            return postResponse;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
 
     }
 
 }
+
+/* 'Authorization': `Bearer ${token}` */
+
+/*const request = await fetch("http://localhost:5678/api/users/login", {
+            method: "POST",
+            body: JSON.stringify(user),
+            headers: { 
+                "Content-Type": "application/json"
+            }
+            
+        });*/

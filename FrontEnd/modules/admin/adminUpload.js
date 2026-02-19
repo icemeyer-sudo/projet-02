@@ -1,10 +1,10 @@
 import {uploadPicture} from '/modules/upload/uploadPicture.js';
-import {modalBack, resetForm, toggleAdminUpload} from '/modules/modal/index.js';
+import {resetForm, openAdminUpload} from '/modules/modal/index.js';
 
 export function adminUpload(token, data, categoriesData) {
 
     // Chargement de la modale adminUpload au clic
-    toggleAdminUpload();
+    openAdminUpload();
     
     // Création des catégories dans le select du menu d'ajout de photo
     categoriesData.forEach((e) => {
@@ -73,10 +73,5 @@ export function adminUpload(token, data, categoriesData) {
         resetForm();
 
     });
-    
-    // Flèche de retour vers le menu précédent
-    modalBack();
-
-
 
 }
