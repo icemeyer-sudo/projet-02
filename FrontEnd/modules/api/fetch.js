@@ -1,37 +1,38 @@
+const API_URL = "http://localhost:5678/api/";
+
 // Récupère les works et les categories
 export async function fetchGet(target) {
 
     try {
 
-        const response = await fetch("http://localhost:5678/api/" + target, {
+        const response = await fetch(API_URL + target, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
 
-        const Data = await response.json();
-        return Data;
+        if (!response.ok) {
+
+            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
+
+        }
+
+        const data = await response.json();
+        return data;
         
     } catch (error) {
 
         console.log(error);
-
-        if(target === "works") {
-
-            let data = [];
-            return data;
-
-        }
-
+        
     }
 
 }
 
 // Supprime un élément
-export function fetchDelete(id, token) {
+export async function fetchDelete(id, token) {
 
     try {
 
-        fetch("http://localhost:5678/api/works/" + id, {
+        const response = await fetch(API_URL + "works/" + id, {
             method: "DELETE",
             headers: { 
                 'Content-Type': 'application/json',
@@ -39,16 +40,24 @@ export function fetchDelete(id, token) {
             }
         });
 
+        if (!response.ok) {
+
+            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
+
+        }
+
+        return response;
+
     } catch (error) {
 
-        console.log(error);
+        console.log("error");
 
     }
 
 }
 
 // Ajout un élément ou identification
-export function fetchPost(data, token) {
+export async function fetchPost(data, token) {
 
     if(!token) {
 
@@ -70,18 +79,24 @@ export function fetchPost(data, token) {
 
     }
 
-    function post(dataPost, headersPost, targetPost) {
+    async function post(dataPost, headersPost, targetPost) {
 
         try {
 
-            const postResponse = fetch("http://localhost:5678/api/" + targetPost, {
+            const response = await fetch(API_URL + targetPost, {
                 method: "POST",
                 body: dataPost,
                 headers: headersPost
                 
             })
 
-            return postResponse;
+            if (!response.ok) {
+
+            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
+            
+        }
+
+            return response;
 
         } catch (error) {
 
@@ -92,14 +107,3 @@ export function fetchPost(data, token) {
     }
 
 }
-
-/* 'Authorization': `Bearer ${token}` */
-
-/*const request = await fetch("http://localhost:5678/api/users/login", {
-            method: "POST",
-            body: JSON.stringify(user),
-            headers: { 
-                "Content-Type": "application/json"
-            }
-            
-        });*/

@@ -11,13 +11,20 @@ export function removeContent(token) {
             // Suppression de la photo de la modale
             const id = e.target.getAttribute("data-id");
             const divId = document.getElementById("div-id-"+ id);
-            divId.remove();
 
             // Suppression de la photo de la gallerie index
             const figureId = document.getElementById("figure-id-"+ id);
-            figureId.remove();
-            
-            fetchDelete(id, token);
+        
+            fetchDelete(id, token).then((response) => {
+
+                if(response.ok) {
+
+                    divId.remove();
+                    figureId.remove();
+                    
+                }
+
+            });
 
         }
 

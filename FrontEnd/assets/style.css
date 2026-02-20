@@ -43,7 +43,10 @@ body {
 	
 }
 main {
-	padding: 0px 50px;
+	margin: auto;
+	padding: 0px 100px;
+	max-width: 940px;
+	margin-top: 50px;
 }
 ol, ul {
 	list-style: none;
@@ -71,15 +74,12 @@ table {
 	margin: 0px;
 }
 
-#sous-container {
-	max-width: 1140px;
-	width: 100%;
-	margin: auto;
-	margin-top: 50px;
-}
 header {
 	display: flex;
 	justify-content: space-between;
+	max-width: 1140px;
+	margin: auto;
+	margin-top: 50px;
 }
 section {
 	margin: 50px 0
@@ -105,7 +105,7 @@ section {
 
 #div-admin, #div-admin-upload {
 	display: none;
-	width: 30%;
+	width: 390px;
 	position: fixed;
 	background-color: white;
 	top: 10vh;
@@ -145,12 +145,12 @@ section {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 50px;
 }
 
 #div-admin-title h3 {
 	font-size: 26px;
 	font-family: 'Work Sans' ;
-	margin-bottom: 50px;
 }
 
 .js-admin-div {
@@ -173,15 +173,14 @@ section {
 .div-admin-gallery {
 	max-height: 45vh;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	gap: 30px 10px;
 	overflow: auto;
-	padding: 0 20px;
 }
 
 .div-admin-gallery img {
 	width: 100%;
-	height: 110px;
+	height: 100px;
 	object-fit: cover;
 }
 
@@ -204,6 +203,7 @@ section {
 	padding: 10px;
 	border: 1px solid #1D6154;
 	cursor: pointer;
+	margin: auto;
 }
 
 #div-file-upload {
@@ -241,11 +241,18 @@ section {
 	font-weight: 700;
 	font-family: 'Syne' ;
 	min-width: 100px;
+	cursor: pointer;
 }
 
 .filters button:hover {
 	color: #FFFEF8;
 	background-color: #1D6154;
+}
+
+.figureGallery figcaption {
+	color: #3D3D3D;
+	padding: 5px 0;
+	font-size: 13px;
 }
 
 h1{
@@ -280,6 +287,9 @@ nav li {
 	padding: 0 0 0 20px;
 	font-size: 1.2em;
 }
+nav li img {
+	width: 1.2em;
+}
 
 li:hover {
 	color: #B1663C;
@@ -306,6 +316,11 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+#portfolio {
+	margin-top: 100px;
+}
+
 #portfolio h2 {
 	text-align: center;
 }
@@ -392,6 +407,12 @@ footer nav ul {
 	padding: 2em 0;
 }
 
+.footer {
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}
+
 .main-container {
 	display: flex;
 	align-items: center;
@@ -401,6 +422,10 @@ footer nav ul {
 .h2-login {
 	text-align: center;
 	margin-bottom: 50px;
+}
+
+.login-page {
+	font-weight: 600;
 }
 
 .p-loging {
@@ -454,4 +479,22 @@ footer nav ul {
 
 .disabled {
 	display: none;
+}
+
+.input-title {
+	min-width: 300px;
+	background-color: white;
+	border: none;
+	box-shadow: 0px 4px 14px 0 #00000017;
+	padding: 10px;
+	height: 30px;
+}
+
+.input-select {
+	min-width: 300px;
+	background-color: white;
+	border: none;
+	box-shadow: 0px 4px 14px 0 #00000017;
+	height: 50px;
+	padding: 10px;
 }

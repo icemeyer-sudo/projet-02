@@ -1,5 +1,8 @@
 import {fetchPost} from '/modules/api/fetch.js';
 
+const inputEmail = document.getElementById("e-mail").value;
+const inputPassword = document.getElementById("password").value;
+
 // Si un utilisateur est déjà connecté, redirection index.html
 if(window.localStorage.getItem("token")) {
 
@@ -21,23 +24,24 @@ btnSubmit.addEventListener("click", async function (event) {
 
     } else {
 
-        const inputEmail = document.getElementById("e-mail").value;
-        const inputPassword = document.getElementById("password").value;
-
-        let user = {
+        /*let user = {
             email: inputEmail,
             password: inputPassword
+        };*/
+
+        // Identifiant déjà entré pour aller plus vite
+        let user = {
+            email: "sophie.bluel@test.tld",
+            password: "S0phie"
         };
 
         // Connexion au serveur
-        const request = await fetchPost(user);;
+        const request = await fetchPost(user);
 
         if(!request.ok) {
 
             const msgError = document.getElementById("p-error");
-            const inputEmail = document.getElementById("e-mail");
             inputEmail.value = "";
-            const inputPassword = document.getElementById("password");
             inputPassword.value = "";
             msgError.textContent = "Combinaison e-mail / mot de passe incorrect";
             msgError.classList.remove("disabled");
@@ -53,12 +57,6 @@ btnSubmit.addEventListener("click", async function (event) {
         }
 
     }
-    
 
-    // Identifiant déjà entré pour aller plus vite
-    /*let user = {
-        email: "sophie.bluel@test.tld",
-        password: "S0phie"
-    };*/
 
 });

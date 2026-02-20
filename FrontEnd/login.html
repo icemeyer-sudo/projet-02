@@ -14,63 +14,55 @@
 
 <body>
 
-	<div id="sous-container">
+	<header>
 
-    	<header>
+		<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 
-			<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+		<nav>
+			<ul>
+				<li>projets</li>
+				<li>contact</li>
+				<li><a href="login.html" class="login-page">login</a></li>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
 
-			<nav>
+	</header>
 
-				<ul>
+	<main class="main-container">
 
-					<li>projets</li>
-					<li>contact</li>
-					<li><a href="login.html">login</a></li>
-					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		<section class="section-login">
 
-				</ul>
+			<form action="" class="form-login">
 
-			</nav>
+				<p id="p-error" class="disabled"></p>
 
-		</header>
+				<h2 class="h2-login">Log in</h2>
+				
+				<p class="p-login"><label>E-mail</label></p>
+				<p class="p-login"><input type="text" id="e-mail"></p>
+				<p class="p-login"><label>Mot de passe</label></p>
+				<p class="p-login"><input type="password" id="password"></p>
+				<p class="p-submit"><input type="submit" value="Se connecter" id="btn-submit"></p>
+				<p class="pw-forget"><a href="#">Mot de passe oublié</a></p>
 
-		<main class="main-container">
+			</form>
 
-    		<section class="section-login">
+		</section>
 
-				<form action="" class="form-login">
+	</main>
 
-					<p id="p-error" class="disabled"></p>
+	<footer class="footer">
 
-					<h2 class="h2-login">Log in</h2>
-					
-					<p class="p-login"><label>E-mail</label></p>
-					<p class="p-login"><input type="text" id="e-mail"></p>
-					<p class="p-login"><label>Mot de passe</label></p>
-					<p class="p-login"><input type="password" id="password"></p>
-					<p class="p-submit"><input type="submit" value="Se connecter" id="btn-submit"></p>
-					<p class="pw-forget"><a href="#">Mot de passe oublié</a></p>
+		<nav>
 
-				</form>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
 
-			</section>
+		</nav>
 
-		</main>
-
-		<footer>
-
-			<nav>
-
-				<ul>
-					<li>Mentions Légales</li>
-				</ul>
-
-			</nav>
-
-		</footer>
-		
-	</div>
+	</footer>
 
 </body>
 </html>
