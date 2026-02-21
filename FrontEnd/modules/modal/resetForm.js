@@ -2,15 +2,23 @@
 export function resetForm () {
 
     const file = document.getElementById("file");
+    const label = document.querySelector(".label-upload");
     const img = document.querySelector("#div-file-upload img");
+    const msgError = document.getElementById("p-error");
+
+    // Fait réapparaitre l'input file
     if (file) {
-        // Fait réapparaitre l'input file
         file.classList.remove("disabled");
+        label.classList.remove("disabled");
     }
+
+    // Supprime l'image en prévisualisation
     if (img) {
-        // Supprime l'image en prévisualisation
-    img.remove();
+        img.remove();
     }
+
+    // Supprime les anciens messages d'erreur
+    msgError.classList.add("disabled");
     
     // Reset du formulaire
     document.querySelector(".form-upload").reset();

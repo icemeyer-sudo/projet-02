@@ -1,5 +1,6 @@
 export function gallery (data, reset) {
 
+    // Si filtres actifs
     if(reset === true) {
 
         const galleryRemove = document.querySelector(".gallery");

@@ -22,6 +22,7 @@ export async function fetchGet(target) {
     } catch (error) {
 
         console.log(error);
+        return [];
         
     }
 
@@ -59,6 +60,7 @@ export async function fetchDelete(id, token) {
 // Ajout un élément ou identification
 export async function fetchPost(data, token) {
 
+    // S'il n'y a pas de token, dans ce cas il s'agit d'une tentative de connexion de l'utilisateur
     if(!token) {
 
         const dataPost = JSON.stringify(data);
@@ -68,6 +70,7 @@ export async function fetchPost(data, token) {
         
         return post(dataPost, headersPost, targetPost);
 
+    // Sinon c'est que c'est un envoi de données    
     } else {
 
         const dataPost = data;
@@ -90,17 +93,14 @@ export async function fetchPost(data, token) {
                 
             })
 
-            if (!response.ok) {
-
-            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
             
-        }
 
             return response;
 
         } catch (error) {
 
             console.log(error);
+            
 
         }
 

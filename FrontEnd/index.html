@@ -76,16 +76,23 @@
 
 				<form class="form-upload" enctype="multipart/form-data">
 
+					<p id="p-error" class="disabled"></p>
+
 					<div id="div-file-upload">
 
-						<input type="file" id="file" name="file">
+						<input type="file" id="file" name="file" accept=".jpg, .png">
+						<label class="label-upload" for="file">
+							<span class="fa-regular fa-image icon-upload"></span>
+							<span class="button-upload">+ Ajouter photo</span>
+							<span class="text-upload">jpg, png : 4mo max</span>
+						</label>
 
 					</div>
 
-					<label name="titre">Titre</label>
+					<label name="titre" class="label-inputs">Titre</label>
 					<input type="text" id="title" name="title" class="input-title">
 
-					<label name="catégorie">Catégorie</label>
+					<label name="catégorie" class="label-inputs">Catégorie</label>
 					<select id="categorie" name="categorie" class="input-select">
 						<!-- adminUpload.js -->
 					</select>
