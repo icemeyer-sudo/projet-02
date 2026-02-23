@@ -42,7 +42,7 @@ function eventFilters (data) {
             // Si bouton filtrer tous
             if(dataId == 0) {
 
-                gallery(data, true);
+                gallery(data, true); // true pour reset la gallerie avant de la recréer
 
             }  
                 
@@ -54,7 +54,7 @@ function eventFilters (data) {
                     return j.categoryId == dataId;
 
                 });
-                gallery(resultFilter, true);
+                gallery(resultFilter, true); // true pour reset avant de la recréer
 
             }
 

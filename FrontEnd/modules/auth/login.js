@@ -67,5 +67,5 @@ btnSubmit.addEventListener("click", async function (event) {
 });
 
 // Identifiants
-// email: "sophie.bluel@test.tld",
+// email: "sophie.bluel@test.tld"
 // password: "S0phie"

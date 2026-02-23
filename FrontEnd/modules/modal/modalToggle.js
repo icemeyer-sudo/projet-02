@@ -65,7 +65,7 @@ export function openAdminUpload() {
         modalGallery.classList.remove("active");
         modalGalleryUpload.classList.add("active");
 
-    })    
+    })
     
 }
 
