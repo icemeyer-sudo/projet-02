@@ -1,6 +1,6 @@
-import {adminGallery} from '/modules/admin/adminGallery.js';
+import {renderModalGallery} from '/modules/admin/renderModalGallery.js';
 import {adminUpload} from '/modules/admin/adminUpload.js';
 import {adminRun} from '/modules/admin/adminRun.js';
-import {adminContent} from '/modules/admin/adminContent.js';
+import {setupAdminInterface} from '/modules/admin/setupAdminInterface.js';
 
-export {adminGallery, adminUpload, adminRun, adminContent}
+export {renderModalGallery, adminUpload, adminRun, setupAdminInterface}

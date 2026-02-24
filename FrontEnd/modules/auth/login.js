@@ -4,7 +4,6 @@ import {fetchPost} from '/modules/api/fetch.js';
 if(window.localStorage.getItem("token")) {
 
     window.location.href = "index.html";
-
 }
 
 const btnSubmit = document.getElementById("btn-submit");
@@ -24,9 +23,14 @@ btnSubmit.addEventListener("click", async function (event) {
 
     } else {
 
-        let user = {
+        /*let user = {
             email: inputEmail,
             password: inputPassword
+        };*/
+
+        let user = {
+            email: "sophie.bluel@test.tld",
+            password: "S0phie"
         };
 
         // Connexion au serveur

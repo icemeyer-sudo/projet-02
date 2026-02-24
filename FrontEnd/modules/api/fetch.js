@@ -28,35 +28,6 @@ export async function fetchGet(target) {
 
 }
 
-// Supprime un élément
-export async function fetchDelete(id, token) {
-
-    try {
-
-        const response = await fetch(API_URL + "works/" + id, {
-            method: "DELETE",
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-
-            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
-
-        }
-
-        return response;
-
-    } catch (error) {
-
-        console.log("error");
-
-    }
-
-}
-
 // Ajout un élément ou identification
 export async function fetchPost(data, token) {
 

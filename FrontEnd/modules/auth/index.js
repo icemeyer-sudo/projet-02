@@ -1,3 +1,3 @@
-import {removeToken} from '/modules/auth/removeToken.js';
+import {setupLogout} from '/modules/auth/setupLogout.js';
 
-export {removeToken}
+export {setupLogout}
