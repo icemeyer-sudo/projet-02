@@ -42,7 +42,7 @@ export async function uploadPicture (image, title, category, token) {
         /***** Partie publicGallery *****/
         const gallery = document.querySelector(".gallery");
         const figure = document.createElement("figure");
-        figure.setAttribute("class", "figureGallery");
+        figure.setAttribute("class", "figureGallery", "active");
         figure.setAttribute("id", "figure-id-" + response.id);
 
         const img = document.createElement("img");

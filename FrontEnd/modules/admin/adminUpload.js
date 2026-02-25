@@ -1,7 +1,9 @@
 import {uploadPicture} from '/modules/upload/uploadPicture.js';
 import {resetForm, openAdminUpload} from '/modules/modal/index.js';
 
-export function adminUpload(token, data, categoriesData) {
+const token = window.localStorage.getItem("token");
+
+export function adminUpload(categoriesData) {
 
     // Chargement de la modale adminUpload au clic
     openAdminUpload();
@@ -87,7 +89,7 @@ export function adminUpload(token, data, categoriesData) {
         let titleNew = document.getElementById("title").value;
         let categorieNew = document.getElementById("categorie").value;
 
-        uploadPicture(newImg, titleNew, categorieNew, token, data);
+        uploadPicture(newImg, titleNew, categorieNew, token);
 
         resetForm();
 

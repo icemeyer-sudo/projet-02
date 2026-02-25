@@ -22,12 +22,11 @@ function deleteWorkFromAPI(workId) {
             method: "DELETE",
             headers: { 
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer token`
+                'Authorization': `Bearer ${token}`
             }
         })
         .then(response => {
 
-            console.log(response.status);
             if(response.status == 204) {
                 
                 removeWorkElement(workId);
@@ -51,7 +50,7 @@ function deleteWorkFromAPI(workId) {
 
 function removeWorkElement(workId) {
 
-    const workItemModal = document.getElementById("div-id-"+ workId);
+    const workItemModal = document.querySelector('[div-id="' + workId + '"')
     const galleryFigure = document.getElementById("figure-id-" + workId);
     workItemModal.remove();
     galleryFigure.remove();

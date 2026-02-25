@@ -1,33 +1,3 @@
-const API_URL = "http://localhost:5678/api/";
-
-// Récupère les works et les categories
-export async function fetchGet(target) {
-
-    try {
-
-        const response = await fetch(API_URL + target, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        });
-
-        if (!response.ok) {
-
-            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
-
-        }
-
-        const data = await response.json();
-        return data;
-        
-    } catch (error) {
-
-        console.log(error);
-        return [];
-        
-    }
-
-}
-
 // Ajout un élément ou identification
 export async function fetchPost(data, token) {
 

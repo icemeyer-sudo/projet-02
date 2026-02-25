@@ -1,21 +1,19 @@
-import {renderGallery} from '/modules/gallery/renderGallery.js';
-import {setupFilters} from '/modules/gallery/setupFilters.js';
-import {fetchGet} from '/modules/api/fetch.js';
-import {adminRun, setupAdminInterface} from '/modules/admin/index.js';
-import {setupLogout} from '/modules/auth/index.js';
+import {setupAdminInterface} from '/modules/admin/setupAdminInterface.js';
+import {setupLogout} from '/modules/auth/setupLogout.js';
 import {listenFilters} from '/modules/gallery/listenFilters.js';
+import {removeModal} from '/modules/modal/modalToggle.js';
+import {getWorks} from '/modules/gallery/getWorks.js';
+import {getCategories} from '/modules/gallery/getCategories.js';
 
 const token = window.localStorage.getItem("token");
 
-const works = await fetchGet("works");
-const categories = await fetchGet("categories");
+getWorks();
+getCategories();
+listenFilters();
 
 if(token) { 
+
     setupAdminInterface() 
     setupLogout();
-    adminRun(works, categories, token);
+    removeModal();
 };
-
-renderGallery(works);
-setupFilters(categories);
-listenFilters();

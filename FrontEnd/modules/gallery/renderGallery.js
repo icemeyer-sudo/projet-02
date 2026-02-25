@@ -12,7 +12,7 @@ export function renderGallery (works) {
         const img = document.createElement("img");
         img.src = work.imageUrl;
         img.setAttribute("id", "numeroId" + work.id)
-        img.setAttribute("class", "imageGallery");
+        img.classList.add("imageGallery");
         img.setAttribute("alt", work.title);
 
         const figcaption = document.createElement("figcaption");
