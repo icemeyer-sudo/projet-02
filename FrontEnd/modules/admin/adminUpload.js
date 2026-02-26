@@ -1,12 +1,9 @@
 import {uploadPicture} from '/modules/upload/uploadPicture.js';
-import {resetForm, openAdminUpload} from '/modules/modal/index.js';
+import {resetForm} from '/modules/modal/resetForm.js';
 
 const token = window.localStorage.getItem("token");
 
 export function adminUpload(categoriesData) {
-
-    // Chargement de la modale adminUpload au clic
-    openAdminUpload();
     
     // Création des catégories dans le select du menu d'ajout de photo
     categoriesData.forEach((e) => {

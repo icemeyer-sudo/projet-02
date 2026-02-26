@@ -1,7 +1,7 @@
 import {adminUpload} from '/modules/admin/adminUpload.js';
 import {setupFilters} from '/modules/gallery/setupFilters.js';
 
-const CATEGORIES_API_URL = "http://localhost:5678/api/categories/";
+const CATEGORIES_API_URL = "http://localhost:567/api/categories/";
 const token = window.localStorage.getItem("token");
 
 export function getCategories() {
@@ -13,7 +13,14 @@ export function getCategories() {
     })
     .then((categoriesResponse) => {
 
-        return categoriesResponse.json();
+        if(categoriesResponse.status === 200) {
+        
+            return categoriesResponse.json();
+        }
+        else {
+
+            throw new Error("Une erreur s'est produite");
+        }
     })
     .then((categories) => {
 
@@ -26,6 +33,7 @@ export function getCategories() {
     })
     .catch(() => {
 
+        console.error(error);
     })
 
 }

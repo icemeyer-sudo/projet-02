@@ -1,7 +1,14 @@
-import {openAdminGallery} from '/modules/modal/index.js';
+import {displayAdminGallery} from '/modules/modal/displayAdminGallery.js';
 import {initializeDeleteWorkListener} from '/modules/upload/initializeDeleteWorkListener.js';
 
-export function renderModalGallery (works) {
+export function renderAdminGallery (works) {
+
+    createAdminGallery(works); // création du HTML dans la modale admin
+    initializeDeleteWorkListener(); // écoute sur les boutons "supprimer"
+    displayAdminGallery(); // déclenche l'affichage au clic avec un eventlistener
+}
+
+function createAdminGallery(works) {
 
     const adminGalleryContainer  = document.querySelector(".div-admin-gallery");
     works.forEach((work) => {
@@ -23,10 +30,5 @@ export function renderModalGallery (works) {
         // On ajout l'image et la croix dans la balise div
         workItemContainer.appendChild(img);
         workItemContainer.appendChild(deleteIcon)
-
     });
-
-    openAdminGallery();
-    initializeDeleteWorkListener();
-
 }

@@ -1,4 +1,4 @@
-import {renderModalGallery} from '/modules/admin/renderModalGallery.js'
+import {renderAdminGallery} from '/modules/admin/renderAdminGallery.js'
 import {renderGallery} from '/modules/gallery/renderGallery.js'
 
 const WORKS_API_URL = "http://localhost:5678/api/works/";
@@ -13,7 +13,14 @@ export function getWorks() {
     })
     .then((worksResponse) => {
 
-        return worksResponse.json();
+        if(worksResponse.status === 200) { 
+
+            return worksResponse.json();
+        }
+        else {
+
+            throw new Error("Une erreur s'est produite");
+        }
     })
     .then((works) => {
 
@@ -21,11 +28,12 @@ export function getWorks() {
 
         if(token) { 
             
-            renderModalGallery(works);
+            renderAdminGallery(works);
         }
     })
-    .catch(() => {
+    .catch((error) => {
 
+        console.error(error);
     })
 
 }
