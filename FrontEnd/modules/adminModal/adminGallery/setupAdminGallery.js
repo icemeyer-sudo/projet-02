@@ -1,14 +1,13 @@
-import {displayAdminGallery} from '/modules/modal/displayAdminGallery.js';
-import {initializeDeleteWorkListener} from '/modules/upload/initializeDeleteWorkListener.js';
+import {setupDeleteWork} from '/modules/adminModal/setupDeleteWork.js';
+import {setupAdminGalleryModalTrigger} from '/modules/adminModal/adminGallery/setupAdminGalleryModalTrigger.js';
 
-export function renderAdminGallery (works) {
-
-    createAdminGallery(works); // création du HTML dans la modale admin
-    initializeDeleteWorkListener(); // écoute sur les boutons "supprimer"
-    displayAdminGallery(); // déclenche l'affichage au clic avec un eventlistener
+export function setupAdminGallery (works) {
+    setupAdminGalleryModalTrigger()
+    renderAdminGallery(works);
+    setupDeleteWork();
 }
 
-function createAdminGallery(works) {
+function renderAdminGallery(works) {
 
     const adminGalleryContainer  = document.querySelector(".div-admin-gallery");
     works.forEach((work) => {

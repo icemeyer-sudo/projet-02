@@ -1,4 +1,4 @@
-import {resetForm} from '/modules/modal/resetForm.js';
+import {resetFormModal} from '/modules/adminModal/resetFormModal.js';
 
 export function setupAdminModalClose() {
 
@@ -21,7 +21,7 @@ function listenEscapeKey() {
             modalGallery.classList.remove("active");
             modalGalleryUpload.classList.remove("active");
 
-            resetForm();
+            resetFormModal();
         }
     })
 }
@@ -39,7 +39,7 @@ function listenBackdropClick() {
         modalGallery.classList.remove("active");
         modalGalleryUpload.classList.remove("active");
 
-        resetForm();
+        resetFormModal();
     }))
 }
 
@@ -55,6 +55,6 @@ function listenReturnButton() {
         modalContainer.classList.add("active");
         modalGallery.classList.add("active");
 
-        resetForm();
+        resetFormModal();
     });
 }

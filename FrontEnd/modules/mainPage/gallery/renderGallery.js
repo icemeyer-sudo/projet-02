@@ -3,7 +3,6 @@ export function renderGallery (works) {
     const galleryElement = document.querySelector(".gallery");
 
     works.forEach((work) => {
-
         const figure = document.createElement("figure");
         figure.classList.add("figureGallery", "active");
         figure.setAttribute("id", "figure-id-" + work.id);
@@ -21,7 +20,5 @@ export function renderGallery (works) {
         galleryElement.appendChild(figure);
         figure.appendChild(img);
         figure.appendChild(figcaption);
-
     })
-
 };

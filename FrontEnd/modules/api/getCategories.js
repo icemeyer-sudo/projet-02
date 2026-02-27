@@ -1,39 +1,20 @@
-import {adminUpload} from '/modules/admin/adminUpload.js';
-import {setupFilters} from '/modules/gallery/setupFilters.js';
-
-const CATEGORIES_API_URL = "http://localhost:567/api/categories/";
-const token = window.localStorage.getItem("token");
+const CATEGORIES_API_URL = "http://localhost:5678/api/categories/";
 
 export function getCategories() {
-
-    fetch(CATEGORIES_API_URL, {
-
+    return fetch(CATEGORIES_API_URL, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
     })
-    .then((categoriesResponse) => {
-
-        if(categoriesResponse.status === 200) {
-        
-            return categoriesResponse.json();
-        }
-        else {
-
-            throw new Error("Une erreur s'est produite");
-        }
+    .then((response) => {
+        return handlePostResponse(response);
     })
-    .then((categories) => {
+}
 
-        setupFilters(categories);
-
-        if(token) { 
-            
-            adminUpload(categories); 
-        }
-    })
-    .catch(() => {
-
-        console.error(error);
-    })
-
+function handlePostResponse(response) {
+    if(response.status === 200) { 
+        return response.json();
+    }
+    else {
+        throw new Error("Une erreur s'est produite");
+    }
 }

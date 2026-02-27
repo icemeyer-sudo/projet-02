@@ -1,55 +1,35 @@
-const token = window.localStorage.getItem("token");
-const API_URL = "http://localhost:5678/api/works/";
+import {deleteWork} from '/modules/api/deleteWork.js';
 
-export function initializeDeleteWorkListener() {
+export function setupDeleteWork() {
 
     const adminGallery = document.getElementById("divAdminGallery");
     adminGallery.addEventListener("click", (event) => {
-
         if(event.target.classList.contains("admin-trash-img")) {
-
             const workId = event.target.getAttribute("data-id");
-            deleteWorkFromAPI(workId);
+            deleteWork(workId)
+            .then(response => handleDeleteResponse(response, workId))
+            .catch(error => console.error(error));
         }
     })
 }
 
-function deleteWorkFromAPI(workId) {
+/***** INTERNAL FUNCTIONS *****/
 
-    try {
-
-        fetch(API_URL + workId, {
-            method: "DELETE",
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => {
-
-            if(response.status == 204) {
-                
-                removeWorkElement(workId);
-            }
-            else if(response.status == 401) {
-
-                window.localStorage.removeItem("token");
-                renderErrorAuth();
-            }
-            else {
-
-                throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
-            }
-        });
-
-    } catch (error) {
-
-        console.log(error);
+function handleDeleteResponse(response, workId) {
+    if(response.status === 204) {           
+        removeWorkElement(workId);
+    }
+    else if(response.status === 401) { // Si le token a expiré
+        window.localStorage.removeItem("token");
+        renderErrorAuth();
+        throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
+    }
+    else {
+        throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
     }
 }
 
 function removeWorkElement(workId) {
-
     const workItemModal = document.querySelector('[div-id="' + workId + '"')
     const galleryFigure = document.getElementById("figure-id-" + workId);
     workItemModal.remove();
@@ -57,12 +37,9 @@ function removeWorkElement(workId) {
 }
 
 function renderErrorAuth() {
-
     const adminGallery = document.getElementById("div-admin");
-
     const errorContainer = document.createElement("div");
     errorContainer.classList.add("error-container");
-
     const errorText = document.createElement("p");
     errorText.textContent = "Une erreur est survenue. Veuillez vous reconnecter.";
 

@@ -1,4 +1,4 @@
-import {listenFilters} from '/modules/gallery/listenFilters.js';
+import {listenFilters} from '/modules/mainPage/gallery/listenFilters.js';
 
 export function setupFilters(categories) {
 

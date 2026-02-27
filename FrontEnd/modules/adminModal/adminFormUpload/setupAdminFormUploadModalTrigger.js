@@ -1,4 +1,4 @@
-export function setupUploadFormModal() {
+export function setupAdminFormUploadModalTrigger() {
     
     const jsBtnUpload = document.getElementById("js-btn-add");
     const modalGallery = document.querySelector("#div-admin");

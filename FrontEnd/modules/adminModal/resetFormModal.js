@@ -1,5 +1,4 @@
-// Reset du formulaire
-export function resetForm () {
+export function resetFormModal () {
 
     const file = document.getElementById("file");
     const label = document.querySelector(".label-upload");

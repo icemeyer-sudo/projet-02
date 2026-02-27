@@ -1,4 +1,4 @@
-export function displayAdminGallery() {
+export function setupAdminGalleryModalTrigger() {
 
     const modalBtnTrigger = document.querySelector(".modal-btn-trigger");
     const modalContainer = document.querySelector(".modal-container");
