@@ -1,34 +1,34 @@
 import {postLogin} from '/modules/api/postLogin.js';
 
 export function setupLogin() {
-
-    const errorMessage = document.getElementById("p-error");
     const loginButton = document.getElementById("btn-submit");
-    loginButton.addEventListener("click", (event) => {
+    loginButton.addEventListener("click", handleLoginClick);
+}
 
-        event.preventDefault();
-        const credentials = validForm();
-        if(credentials) {
-            postLogin(credentials)
-            .then((loginResponse) => {
-                window.localStorage.setItem("token", loginResponse.token);
-                window.location.href = "index.html";
-            })
-            .catch((error) => {
-                handleLoginError(error);
-            })
-        }
-    });
+function handleLoginClick(event) {
+    event.preventDefault();
+    const credentials = validForm();
+
+    if(credentials) {
+        postLogin(credentials)
+        .then(handleLoginSuccess)
+        .catch(handleLoginError);
+    }
+}
+
+function handleLoginSuccess(loginResponse) {
+    window.localStorage.setItem("token", loginResponse.token);
+    window.location.href = "index.html";
 }
 
 function validForm() {
-    const errorMessage = document.getElementById("p-error");
+    const errorElement = document.getElementById("p-error");
     const emailInput = document.getElementById("e-mail").value;
     const passwordInput = document.getElementById("password").value;
 
     if(!emailInput || !passwordInput) {
-        errorMessage.textContent = "Veuillez compléter le formulaire";
-        errorMessage.classList.remove("disabled");
+        errorElement.textContent = "Veuillez compléter le formulaire";
+        errorElement.classList.remove("disabled");
         return false;
     } 
     else {
@@ -41,21 +41,21 @@ function validForm() {
 }
 
 function handleLoginError(error) {
-    const errorMessage = document.getElementById("p-error");
+    const errorElement = document.getElementById("p-error");
     document.getElementById("e-mail").value = "";
     document.getElementById("password").value = "";
 
     if(error.type === "AUTH_ERROR") {
-        errorMessage.textContent = error.message;
+        errorElement.textContent = error.message;
     }
     else if(error.type === "SERVER_ERROR") {
-        errorMessage.textContent = error.message;
+        errorElement.textContent = error.message;
     }
     else {
-        errorMessage.textContent = "Impossible de se connecter au serveur";
+        errorElement.textContent = "Impossible de se connecter au serveur";
     }
 
-    errorMessage.classList.remove("disabled");
+    errorElement.classList.remove("disabled");
 }
 
 // Identifiants

@@ -1,4 +1,4 @@
-const WORKS_API_URL = "http://localhost:5678/api/works/";
+const WORKS_API_URL = "http://localhost:567/api/works/";
 
 export function getWorks() {
     return fetch(WORKS_API_URL, {

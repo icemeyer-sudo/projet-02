@@ -18,10 +18,17 @@ Promise.all([
     }
 })
 .catch((error) => {
-    console.error(error);
+    handleErrorMessage(error);
 })
 
 if(token) { 
     setupLogout();
     setupAdminInterface();
 };
+
+function handleErrorMessage(error) {
+    const errorElement = document.querySelector(".error-gallery");
+    errorElement.classList.remove("disabled");
+    errorElement.textContent = error;
+    console.error(error);
+}
