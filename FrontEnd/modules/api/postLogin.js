@@ -9,7 +9,7 @@ export function postLogin(user) {
     return fetch(LOGIN_API_URL, {
         method: "POST",
         body: credentials ,
-        headers: requestHeaders 
+        headers: requestHeaders
     })
     .then((response) => {
         return handlePostResponse(response);
@@ -17,13 +17,11 @@ export function postLogin(user) {
 }
 
 function handlePostResponse(response) {
-    if(response.status === 200) {
+    if (response.status === 200) {
         return response.json();
-    }
-    else if(response.status === 401 || response.status === 404) {
+    } else if (response.status === 401 || response.status === 404) {
         throw { type: "AUTH_ERROR", message: "E-mail ou mot de passe incorrect" };
-    }
-    else {
+    } else {
         throw { type: "SERVER_ERROR", message: "Le serveur ne répond pas"};
     }
 }

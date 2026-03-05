@@ -13,7 +13,8 @@ Promise.all([
 ])
 .then(([worksResult, categoriesResult]) => {
     setupMainPage(worksResult, categoriesResult);
-    if(token) { 
+
+    if(token) {
         setupAdminModal(worksResult, categoriesResult);
     }
 })
@@ -21,7 +22,7 @@ Promise.all([
     handleErrorMessage(error);
 })
 
-if(token) { 
+if(token) {
     setupLogout();
     setupAdminInterface();
 };
