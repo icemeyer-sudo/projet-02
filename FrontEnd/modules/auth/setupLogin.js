@@ -22,11 +22,11 @@ function handleLoginSuccess(loginResponse) {
 }
 
 function validForm() {
-    const errorElement = document.getElementById("p-error");
     const emailInput = document.getElementById("e-mail").value;
     const passwordInput = document.getElementById("password").value;
 
     if(!emailInput || !passwordInput) {
+        const errorElement = document.getElementById("p-error");
         errorElement.textContent = "Veuillez compléter le formulaire";
         errorElement.classList.remove("disabled");
         return false;

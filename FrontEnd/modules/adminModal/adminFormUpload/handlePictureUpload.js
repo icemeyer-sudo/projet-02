@@ -1,4 +1,5 @@
 import {postWork} from '/modules/api/postWork.js';
+import {resetFormModal} from '/modules/adminModal/resetFormModal.js';
 
 export function handlePictureUpload (image, title, category) {
     const formData = new FormData();
@@ -10,10 +11,32 @@ export function handlePictureUpload (image, title, category) {
     .then((work) => {
         renderPictureInMainPage(work);
         renderPictureInadminGallery(work);
+        resetFormModal();
     })
     .catch((error) => {
-        console.error(error);
+        renderErrorMessage(error);
     });
+}
+
+function renderErrorMessage(error) {
+    if(error.type === "AUTH_ERROR") {
+        window.localStorage.removeItem("token");
+        const msgError = document.getElementById("p-error");
+        msgError.classList.remove("disabled");
+        msgError.textContent = error.message;
+    }
+    else if(error.type === "SERVER_ERROR") {
+        const msgError = document.getElementById("p-error");
+        msgError.classList.remove("disabled");
+        msgError.textContent = error.message
+        console.error(error);
+    }
+    else {
+        const msgError = document.getElementById("p-error");
+        msgError.classList.remove("disabled");
+        msgError.textContent = "Le serveur ne répond pas. Veuillez recommencer.";
+        console.error(error);
+    }
 }
 
 function renderPictureInMainPage(work) {

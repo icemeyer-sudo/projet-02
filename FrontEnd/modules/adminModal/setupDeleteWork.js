@@ -8,7 +8,7 @@ export function setupDeleteWork() {
             const workId = event.target.getAttribute("data-id");
             deleteWork(workId)
             .then(response => handleDeleteResponse(response, workId))
-            .catch(error => console.error(error));
+            .catch(error => renderErrorServer(error));
         }
     })
 }
@@ -30,19 +30,41 @@ function handleDeleteResponse(response, workId) {
 }
 
 function removeWorkElement(workId) {
-    const workItemModal = document.querySelector('[div-id="' + workId + '"')
+    const workItemModal = document.querySelector('[div-id="' + workId + '"]');
     const galleryFigure = document.getElementById("figure-id-" + workId);
     workItemModal.remove();
     galleryFigure.remove();
 }
 
 function renderErrorAuth() {
-    const adminGallery = document.getElementById("div-admin");
-    const errorContainer = document.createElement("div");
-    errorContainer.classList.add("error-container");
-    const errorText = document.createElement("p");
-    errorText.textContent = "Une erreur est survenue. Veuillez vous reconnecter.";
+    const existingErrorContainer = document.querySelector(".error-container");
+    if (existingErrorContainer) {
+        return
+    }
+    else {
+        const adminGallery = document.getElementById("div-admin");
+        const errorContainer = document.createElement("div");
+        errorContainer.classList.add("error-container");
+        const errorText = document.createElement("p");
+        errorText.textContent = "Une erreur est survenue. Veuillez vous reconnecter.";
+        adminGallery.insertBefore(errorContainer, adminGallery.firstChild);
+        errorContainer.appendChild(errorText);
+    }
+}
 
-    adminGallery.insertBefore(errorContainer, adminGallery.firstChild);
-    errorContainer.appendChild(errorText);
+function renderErrorServer(error) {
+    console.error(error);
+    const existingErrorContainer = document.querySelector(".error-container");
+    if (existingErrorContainer) {
+        return
+    }
+    else {
+        const adminGallery = document.getElementById("div-admin");
+        const errorContainer = document.createElement("div");
+        errorContainer.classList.add("error-container");
+        const errorText = document.createElement("p");
+        errorText.textContent = "Le serveur ne répond pas.";
+        adminGallery.insertBefore(errorContainer, adminGallery.firstChild);
+        errorContainer.appendChild(errorText);
+    }
 }

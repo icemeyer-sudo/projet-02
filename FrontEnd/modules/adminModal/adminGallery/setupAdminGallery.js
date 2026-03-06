@@ -12,7 +12,7 @@ function renderAdminGallery(works) {
     const adminGalleryContainer  = document.querySelector(".div-admin-gallery");
     works.forEach((work) => {
 
-        // Création de div qui contien l'image
+        // Création de div qui contient l'image
         const workItemContainer = document.createElement("div");
         workItemContainer.classList.add("js-admin-div");
         workItemContainer.setAttribute("div-id", work.id);

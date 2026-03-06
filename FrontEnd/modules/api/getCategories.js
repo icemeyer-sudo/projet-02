@@ -6,15 +6,8 @@ export function getCategories() {
         headers: { "Content-Type": "application/json" }
     })
     .then((response) => {
-        return handlePostResponse(response);
+        if(response.status === 200) { 
+            return response.json();
+        }
     })
-}
-
-function handlePostResponse(response) {
-    if(response.status === 200) { 
-        return response.json();
-    }
-    else {
-        throw new Error("Une erreur s'est produite");
-    }
 }

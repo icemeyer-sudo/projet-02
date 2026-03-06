@@ -9,8 +9,5 @@ export function getWorks() {
         if(response.status === 200) { 
             return response.json();
         }
-        else {
-            throw new Error("Une erreur s'est produite");
-        }
     });
 }

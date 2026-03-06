@@ -1,9 +1,6 @@
 export function setupAdminInterface() {
-
     updateNavToLogout()
     enableEditionMode()
-    disableFilters()
-
 }
 
 function updateNavToLogout() {
@@ -22,11 +19,3 @@ function enableEditionMode() {
     editLink.classList.add("active");
 
 }
-
-function disableFilters() {
-
-    const filterPanel = document.getElementById("filters");
-    filterPanel.classList.add("disabled");
-
-}
-

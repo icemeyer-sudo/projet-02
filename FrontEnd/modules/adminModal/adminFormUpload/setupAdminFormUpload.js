@@ -1,5 +1,4 @@
 import {handlePictureUpload} from '/modules/adminModal/adminFormUpload/handlePictureUpload.js';
-import {resetFormModal} from '/modules/adminModal/resetFormModal.js';
 
 export function setupAdminFormUpload(categories) {
     renderSelectOptions(categories);
@@ -26,8 +25,9 @@ function setupFileChangeListener() {
 
     file.addEventListener("change", () => {
 
+        const msgError = document.getElementById("p-error");
+        msgError.classList.add("disabled");
         const newImg = file.files[0];
-
         const validation = validFile(newImg);
         if(!validation.valid) {
             handleFileError(validation);
@@ -53,7 +53,6 @@ function setupPostForm() {
             let categorie = document.getElementById("categorie").value;
 
             handlePictureUpload(img, title, categorie);
-            resetFormModal();
         }
     });
 }

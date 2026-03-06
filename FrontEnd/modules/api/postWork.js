@@ -17,17 +17,11 @@ export function postWork(work) {
 }
 
 function handlePostResponse(response) {
-    if(response.status === 201) { 
+    if (response.status === 201) {
         return response.json();
-    }
-    else if(response.status === 401) { // Si le token a expiré
-        window.localStorage.removeItem("token");
-        const msgError = document.getElementById("p-error");
-        msgError.classList.remove("disabled");
-        msgError.textContent = "Vous avez été déconnecté. Veuillez vous reconnecter.";
-        throw new Error("Erreur d'authentification");
-    }
-    else {
-        throw new Error("Une erreur s'est produite");
+    } else if (response.status === 401 || response.status === 404) {
+        throw { type: "AUTH_ERROR", message: "Vous avez été déconnecté." };
+    } else {
+        throw { type: "SERVER_ERROR", message: "Le serveur ne répond pas" };
     }
 }

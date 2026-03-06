@@ -1,7 +1,6 @@
 import {resetFormModal} from '/modules/adminModal/resetFormModal.js';
 
 export function setupAdminModalClose() {
-
     listenEscapeKey()
     listenBackdropClick()
     listenReturnButton()
@@ -29,9 +28,9 @@ function listenEscapeKey() {
 function listenBackdropClick() {
 
     const modalContainer = document.querySelector(".modal-container");
-    const modalGallery = document.querySelector("#div-admin");
-    const modalGalleryUpload = document.querySelector("#div-admin-upload");
-    const modalTriggers = document.querySelectorAll(".modal-trigger");
+    const modalGallery = document.getElementById("div-admin");
+    const modalGalleryUpload = document.getElementById("div-admin-upload");
+    const modalTriggers = document.querySelectorAll(".modal-trigger"); // La croix et le click sur l'arrière plan
 
     modalTriggers.forEach(e => e.addEventListener("click", () => {
 
